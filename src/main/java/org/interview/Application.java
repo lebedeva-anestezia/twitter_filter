@@ -23,7 +23,7 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Map<User, List<Tweet>> groupedTweets = tweetCollector.collectFilteredTweets("bieber", 100L, 30 * 1000L);
+        Map<User, List<Tweet>> groupedTweets = tweetCollector.collectFilteredTweets("bieber", 100, 30 * 1000L);
         for (Map.Entry<User, List<Tweet>> userListEntry : groupedTweets.entrySet()) {
             System.out.println(userListEntry.getKey().getName());
             System.out.println(userListEntry.getKey().getCreatedAt());

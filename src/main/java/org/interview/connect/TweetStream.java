@@ -1,4 +1,4 @@
-package org.interview.domain;
+package org.interview.connect;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.interview.domain.model.Tweet;
@@ -22,8 +22,7 @@ public class TweetStream {
     public Tweet getNextTweet() throws IOException {
         String line = bufferedReader.readLine();
         TweetDTO tweetDTO = objectMapper.readValue(line, TweetDTO.class);
-
-        return new Tweet();
+        return DtoToDomainConverter.convertTweetDTO(tweetDTO);
     }
 
     public boolean isNextTweet() throws IOException {

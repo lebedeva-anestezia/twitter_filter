@@ -1,10 +1,9 @@
-package org.interview.domain;
+package org.interview.connect;
 
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpResponse;
-import org.interview.domain.TweetStream;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;

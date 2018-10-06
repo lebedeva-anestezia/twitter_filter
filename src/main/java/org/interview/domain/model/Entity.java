@@ -35,8 +35,8 @@ public abstract class Entity {
     }
 
     public static class Builder<T extends Entity> {
-        private Long id;
-        private Date createdAt;
+        protected Long id;
+        protected Date createdAt;
 
         public Builder<T> setId(Long id) {
             this.id = id;
@@ -46,10 +46,6 @@ public abstract class Entity {
         public Builder<T> setCreatedAt(Date createdAt) {
             this.createdAt = createdAt;
             return this;
-        }
-
-        public T create() {
-
         }
     }
 }

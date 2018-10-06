@@ -2,7 +2,8 @@ package org.interview.domain;
 
 import org.interview.domain.model.Tweet;
 import org.interview.domain.model.User;
-import org.interview.dto.TweetDTO;
+import org.interview.connect.TweetStream;
+import org.interview.connect.TwitterConnector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
