@@ -5,10 +5,11 @@ import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
-
+@Service
 public class TwitterConnector {
 
     private static final String FILTER_STATUS_URL = "https://stream.twitter.com/1.1/statuses/filter.json";

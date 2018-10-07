@@ -40,12 +40,12 @@ public abstract class Entity {
 
         public Builder<T> setId(Long id) {
             this.id = id;
-            return this;
+            return (Builder<T>) this;
         }
 
         public Builder<T> setCreatedAt(Date createdAt) {
             this.createdAt = createdAt;
-            return this;
+            return (Builder<T>) this;
         }
     }
 }

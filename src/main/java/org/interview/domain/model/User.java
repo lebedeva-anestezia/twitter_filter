@@ -1,5 +1,7 @@
 package org.interview.domain.model;
 
+import com.google.common.base.Objects;
+
 import java.util.Date;
 
 public class User extends Entity {
@@ -31,16 +33,28 @@ public class User extends Entity {
 
         private Builder(){}
 
-        public void setName(String name) {
+        public Builder setName(String name) {
             this.name = name;
+            return this;
         }
 
-        public void setScreenName(String screenName) {
+        public Builder setScreenName(String screenName) {
             this.screenName = screenName;
+            return this;
         }
 
         public User create() {
             return new User(id, createdAt, name, screenName);
         }
+    }
+
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this)
+                .add("name", name)
+                .add("screenName", screenName)
+                .add("id", id)
+                .add("createdAt", createdAt)
+                .toString();
     }
 }

@@ -10,6 +10,8 @@ import java.util.Date;
 public class UserDTO {
     private Long id;
     private String name;
+
+    @JsonProperty("screen_name")
     private String screenName;
 
     @JsonProperty("created_at")

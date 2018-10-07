@@ -1,21 +1,20 @@
 package org.interview.domain;
 
-import org.interview.domain.model.Tweet;
-import org.interview.domain.model.User;
+import org.apache.log4j.Logger;
 import org.interview.connect.TweetStream;
 import org.interview.connect.TwitterConnector;
+import org.interview.domain.model.Tweet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 @Service
 public class TweetCollector {
+
+    private final static Logger logger = Logger.getLogger(TweetCollector.class);
 
     private final TwitterConnector twitterConnector;
 
@@ -24,47 +23,44 @@ public class TweetCollector {
         this.twitterConnector = twitterConnector;
     }
 
-    public Map<User, List<Tweet>> collectFilteredTweets(String token, Integer maxNumberOfTweets, Long timeoutMs) throws IOException, InterruptedException {
+    public List<Tweet> collectFilteredTweets(String token, Integer maxNumberOfTweets, Long timeoutMs) throws IOException, InterruptedException {
         TweetStream tweetStream = twitterConnector.getTweetStreamFilteredByToken(token);
-        List<Tweet> tweets = collectTweets(tweetStream, maxNumberOfTweets, timeoutMs);
-        return groupTweets(tweets);
+        return collectTweets(tweetStream, maxNumberOfTweets, timeoutMs);
     }
 
-    private Map<User, List<Tweet>> groupTweets(List<Tweet> tweets) {
-        Map<User, List<Tweet>> map = new TreeMap<>(Comparator.comparing(User::getCreatedAt));
-        for (Tweet tweet : tweets) {
-            map.putIfAbsent(tweet.getUser(), new ArrayList<>());
-            map.get(tweet.getUser()).add(tweet);
-        }
-        for (List<Tweet> tweetList : map.values()) {
-            tweetList.sort(Comparator.comparing(Tweet::getCreatedAt));
-        }
-        return map;
-    }
-
-    private List<Tweet> collectTweets(TweetStream tweetStream, Integer maxNumberOfTweets, Long timeoutMs) throws IOException, InterruptedException {
+    private List<Tweet> collectTweets(TweetStream tweetStream, Integer maxNumberOfTweets, Long timeoutMs) {
 
         long expirationTime = System.currentTimeMillis() + timeoutMs;
         List<Tweet> tweets = new ArrayList<>();
 
+        logger.info("Start collecting tweets");
+
         try {
-            while (System.currentTimeMillis() < expirationTime) {
-                while (System.currentTimeMillis() < expirationTime && !tweetStream.isNextTweet()) {
+            while (!isTimeExpired(expirationTime)) {
+                while (!isTimeExpired(expirationTime) && !tweetStream.isNextTweet()) {
                     Thread.sleep(10);
                 }
                 if (tweetStream.isNextTweet()) {
-                    tweets.add(tweetStream.getNextTweet());
+                    Tweet nextTweet = tweetStream.getNextTweet();
+                    tweets.add(nextTweet);
+                    logger.debug("New tweet added: " + nextTweet);
                     if (tweets.size() == maxNumberOfTweets) {
                         break;
                     }
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Cannot read tweets ", e);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.error("Tweet collecting thread was interrupted ", e);
         }
 
+        logger.info("Finish collecting tweets");
+
         return tweets;
+    }
+
+    private boolean isTimeExpired(long expirationTime) {
+        return System.currentTimeMillis() >= expirationTime;
     }
 }

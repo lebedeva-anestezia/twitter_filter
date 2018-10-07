@@ -48,7 +48,7 @@ public class TwitterAuthenticator {
     /**
      * Create a new TwitterAuthenticator
      *
-     * @param out Where to print the progress information and messages to the user
+     * @param out Where to serialize the progress information and messages to the user
      * @param consumerKey The OAuth consumer key
      * @param consumerSecret The OAuth consumer secret
      */

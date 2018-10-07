@@ -6,7 +6,7 @@ public class Tweet extends Entity {
     private String text;
     private User user;
 
-    public Tweet(Long id, Date createdAt, String text, User user) {
+    private Tweet(Long id, Date createdAt, String text, User user) {
         super(id, createdAt);
         this.text = text;
         this.user = user;
@@ -30,16 +30,28 @@ public class Tweet extends Entity {
 
         private Builder(){}
 
-        public void setText(String text) {
+        public Builder setText(String text) {
             this.text = text;
+            return this;
         }
 
-        public void setUser(User user) {
+        public Builder setUser(User user) {
             this.user = user;
+            return this;
         }
 
         public Tweet create() {
             return new Tweet(id, createdAt, text, user);
         }
+    }
+
+    @Override
+    public String toString() {
+        return com.google.common.base.Objects.toStringHelper(this)
+                .add("text", text)
+                .add("user", user)
+                .add("id", id)
+                .add("createdAt", createdAt)
+                .toString();
     }
 }

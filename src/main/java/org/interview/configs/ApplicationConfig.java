@@ -10,10 +10,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 
 @Configuration
-@PropertySources({
-        @PropertySource("authorization.properties"),
-        @PropertySource("secrets.properties")
-})
+@PropertySource("authorization.properties")
 public class ApplicationConfig {
 
     @Value("${consumer.key}")
