@@ -1,6 +1,5 @@
 package org.interview.serialize;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
@@ -9,12 +8,15 @@ import java.util.List;
 class PrintableUser {
 
     private Long id;
+
     @JsonProperty("created_at")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Date createdAt;
+
     private String name;
+
     @JsonProperty("screen_name")
     private String screenName;
+
     private List<PrintableTweet> tweets;
 
     public Long getId() {

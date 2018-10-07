@@ -8,9 +8,10 @@ import java.util.Date;
 class PrintableTweet {
 
     private Long id;
+
     @JsonProperty("created_at")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Date createdAt;
+
     private String text;
 
     public Long getId() {
