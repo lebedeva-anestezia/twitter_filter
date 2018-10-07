@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.interview.TestUtils.createTweet;
+import static org.interview.TestUtils.createUser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -96,24 +98,6 @@ public class TweetSorterTest {
 
         assertEquals(tweet2, sortedMap.get(user1).get(0));
         assertEquals(tweet1, sortedMap.get(user1).get(1));
-    }
-
-    private User createUser(Long id, Date createdAt, String name, String screenName) {
-        User.Builder userBuilder = User.builder();
-        userBuilder.setId(id);
-        userBuilder.setCreatedAt(createdAt);
-        userBuilder.setName(name);
-        userBuilder.setScreenName(screenName);
-        return userBuilder.create();
-    }
-
-    private Tweet createTweet(Long id, Date createAt, String text, User user) {
-        Tweet.Builder builder = Tweet.builder();
-        builder.setId(id);
-        builder.setCreatedAt(createAt);
-        builder.setText(text);
-        builder.setUser(user);
-        return builder.create();
     }
 
 }

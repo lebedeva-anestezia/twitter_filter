@@ -34,18 +34,18 @@ public abstract class Entity {
         return id.hashCode();
     }
 
-    public static class Builder<T extends Entity> {
+    public static class Builder<T extends Builder<T>> {
         protected Long id;
         protected Date createdAt;
 
-        public Builder<T> setId(Long id) {
+        public T setId(Long id) {
             this.id = id;
-            return (Builder<T>) this;
+            return (T) this;
         }
 
-        public Builder<T> setCreatedAt(Date createdAt) {
+        public T setCreatedAt(Date createdAt) {
             this.createdAt = createdAt;
-            return (Builder<T>) this;
+            return (T) this;
         }
     }
 }

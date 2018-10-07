@@ -24,7 +24,7 @@ public class Tweet extends Entity {
         return new Builder();
     }
 
-    public static class Builder extends Entity.Builder<Tweet> {
+    public static class Builder extends Entity.Builder<Builder> {
         private String text;
         private User user;
 

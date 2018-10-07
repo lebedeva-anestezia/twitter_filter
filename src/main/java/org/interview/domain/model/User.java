@@ -27,7 +27,7 @@ public class User extends Entity {
         return new Builder();
     }
 
-    public static class Builder extends Entity.Builder<User> {
+    public static class Builder extends Entity.Builder<Builder> {
         private String name;
         private String screenName;
 

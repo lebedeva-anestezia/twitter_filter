@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.io.IOException;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -28,19 +29,33 @@ public class TweetCollectorTest {
     TweetCollector tweetCollector;
 
     @Before
-    public void init() {
+    public void init() throws IOException {
         MockitoAnnotations.initMocks(this);
+        when(tweetStream.getNextTweet())
+                .thenReturn(Tweet.builder().setId(1L).create())
+                .thenReturn(Tweet.builder().setId(2L).create())
+                .thenReturn(Tweet.builder().setId(3L).create());
     }
 
     @Test
-    public void collectFilteredTweets() throws Exception {
+    public void collectTwoFilteredTweets() throws Exception {
         when(twitterConnector.getTweetStreamFilteredByToken(any())).thenReturn(tweetStream);
         when(tweetStream.isNextTweet()).thenReturn(true);
         when(tweetStream.getNextTweet()).thenReturn(Tweet.builder().create());
 
-        List<Tweet> tweets = tweetCollector.collectFilteredTweets("token", 1, 1000L);
+        List<Tweet> tweets = tweetCollector.collectFilteredTweets("token", 2, 1000L);
+
+        assertEquals(2, tweets.size());
+    }
+
+    @Test
+    public void collectOneFilteredTweetsDueToTimeout() throws Exception {
+        when(twitterConnector.getTweetStreamFilteredByToken(any())).thenReturn(tweetStream);
+        when(tweetStream.isNextTweet()).thenReturn(true).thenReturn(true).thenReturn(false);
+        when(tweetStream.getNextTweet()).thenReturn(Tweet.builder().create());
+
+        List<Tweet> tweets = tweetCollector.collectFilteredTweets("token", 2, 1000L);
 
         assertEquals(1, tweets.size());
     }
-
 }
