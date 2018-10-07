@@ -20,6 +20,13 @@ public class TwitterConnector {
         this.httpRequestFactory = httpRequestFactory;
     }
 
+    /**
+     * Method which returns TweetStream with real-time tweets filtered by the passed token
+     *
+     * @param token token to filter tweets by
+     * @return TweetStream of tweets filtered by the token
+     * @throws IOException if an error occurred during connection to Twitter
+     */
     public TweetStream getTweetStreamFilteredByToken(String token) throws IOException {
         HttpRequest httpRequest = httpRequestFactory.buildGetRequest(new GenericUrl(FILTER_STATUS_URL + "?track=" + token));
         HttpResponse response = httpRequest.execute();

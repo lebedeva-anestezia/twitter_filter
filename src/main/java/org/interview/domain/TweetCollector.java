@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Service which provides functionality to obtain tweets in real-time
+ */
 @Service
 public class TweetCollector {
 
@@ -23,6 +26,16 @@ public class TweetCollector {
         this.twitterConnector = twitterConnector;
     }
 
+    /**
+     * Method which collects real-time tweets filtered by the passed token
+     *
+     * @param token token value to filter tweets
+     * @param maxNumberOfTweets maximum number of tweets which can be returned
+     * @param timeoutMs time during which this method collects tweets
+     * @return list of filtered tweets
+     * @throws IOException if an error occurred during connection to Twitter
+     * @throws InterruptedException if current thread was interrupted
+     */
     public List<Tweet> collectFilteredTweets(String token, Integer maxNumberOfTweets, Long timeoutMs) throws IOException, InterruptedException {
         TweetStream tweetStream = twitterConnector.getTweetStreamFilteredByToken(token);
         return collectTweets(tweetStream, maxNumberOfTweets, timeoutMs);

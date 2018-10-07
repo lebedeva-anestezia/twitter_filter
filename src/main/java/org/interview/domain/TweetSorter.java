@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * Service which provides methods to filter and group Tweets
+ */
 @Service
 public class TweetSorter {
 
