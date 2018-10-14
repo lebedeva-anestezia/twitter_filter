@@ -14,7 +14,7 @@ import static org.interview.TestUtils.createUser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class ModelToPrintableConverterTest {
+public class TweetsSerializerTest {
 
     User user;
 
@@ -31,7 +31,7 @@ public class ModelToPrintableConverterTest {
 
     @Test
     public void convertTweet() {
-        PrintableTweet printableTweet = ModelToPrintableConverter.convertTweet(tweet1);
+        PrintableTweet printableTweet = TweetsSerializer.convertTweet(tweet1);
 
         assertNotNull(printableTweet);
         assertEquals(tweet1.getId(), printableTweet.getId());
@@ -41,7 +41,7 @@ public class ModelToPrintableConverterTest {
 
     @Test
     public void testConvertUserWithTweets() {
-        PrintableUser printableUser = ModelToPrintableConverter.convertUserWithTweets(user, Arrays.asList(tweet1, tweet2));
+        PrintableUser printableUser = TweetsSerializer.convertUserWithTweets(user, Arrays.asList(tweet1, tweet2));
 
         assertNotNull(printableUser);
         assertEquals(user.getId(), printableUser.getId());

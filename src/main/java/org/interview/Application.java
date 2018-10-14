@@ -5,7 +5,7 @@ import org.interview.domain.TweetCollector;
 import org.interview.domain.TweetSorter;
 import org.interview.domain.model.Tweet;
 import org.interview.domain.model.User;
-import org.interview.serialize.TweetCollectionSerializer;
+import org.interview.serialize.TweetsSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -31,7 +31,7 @@ public class Application implements ApplicationRunner {
     private TweetSorter tweetSorter;
 
     @Autowired
-    private TweetCollectionSerializer tweetCollectionSerializer;
+    private TweetsSerializer tweetCollectionSerializer;
 
     private static final String MAX_NUMBER_OF_TWEETS_OPTION_NAME = "max_tweets";
     private static final String TIMEOUT_OPTION_NAME = "timeout";

@@ -1,5 +1,7 @@
 package org.interview.domain.model;
 
+import com.google.common.base.MoreObjects;
+
 import java.util.Date;
 
 public class Tweet extends Entity {
@@ -47,7 +49,7 @@ public class Tweet extends Entity {
 
     @Override
     public String toString() {
-        return com.google.common.base.Objects.toStringHelper(this)
+        return MoreObjects.toStringHelper(this)
                 .add("text", text)
                 .add("user", user)
                 .add("id", id)

@@ -37,10 +37,11 @@ public class TweetSorter {
     }
 
     public Map<User, List<Tweet>> sortByTweetsCreatedAt(Map<User, List<Tweet>> map) {
-        Map<User, List<Tweet>> mapCopy = new LinkedHashMap<>(map);
+        Map<User, List<Tweet>> mapCopy = new LinkedHashMap<>();
 
-        for (Map.Entry<User, List<Tweet>> userTweetsEntry : mapCopy.entrySet()) {
-            userTweetsEntry.getValue().sort(Comparator.comparing(Tweet::getCreatedAt));
+        for (Map.Entry<User, List<Tweet>> userTweetsEntry : map.entrySet()) {
+            mapCopy.put(userTweetsEntry.getKey(), new ArrayList<>(userTweetsEntry.getValue()));
+            mapCopy.get(userTweetsEntry.getKey()).sort(Comparator.comparing(Tweet::getCreatedAt));
         }
 
         return mapCopy;
